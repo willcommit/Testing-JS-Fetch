@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Test Fetch</title>
+    
+</head>
+<body>
+    <form id="urlSubmit">
+        <label for="url">Input API Endpoint</label><br>
+        <input type="url" id="urlBox"><br>
+        <button id="submitBtn" type="submit">Submit</button>
+    </form>
+    
+    <ul id="list">
+
+    </ul>
+    <script>
+        const getProducts = (API) => {
+            return fetch(API)
+            .then(response => response.json())
+            .then(products => {
+                products.map(product => {
+                    let post = product.Name;
+                    let ul = document.getElementById("list");
+                    let li = document.createElement("li");
+                    li.appendChild(document.createTextNode(post));
+                    ul.appendChild(li);
+                })
+            })
+        };
+
+        const urlForm = document.getElementById('urlSubmit')
+
+        urlForm.addEventListener('submit', (event) => {
+            event.preventDefault()
+            const url = document.getElementById('urlBox').value
+            getProducts(url);
+        });      
+       
+    </script>
+</body>
+</html>
